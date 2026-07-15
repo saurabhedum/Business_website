@@ -3,6 +3,7 @@ import { TrendingUp, Cpu, Target, CheckCircle } from 'lucide-react';
 import { Feature } from '../types';
 import { motion } from 'motion/react';
 import { TiltCard } from './ui/TiltCard';
+import { EditableText } from '../contexts/CMSContext';
 
 const featuresData: Feature[] = [
   {
@@ -66,15 +67,14 @@ export const Features: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 max-w-4xl mx-auto"
         >
+          <div className="text-primary font-bold text-sm tracking-wider uppercase mb-3">
+            <EditableText id="features.sectionBadge" defaultText="INTELLIGENCE LAYER" />
+          </div>
           <h2 className="text-2xl md:text-5xl font-bold text-white mb-6">
-            We dont just automate processes. <br />
-            <span className="text-primary">We redesign operations for measurable profitability.</span>
+            <EditableText id="features.sectionTitle" defaultText="Custom Software Built for Enterprise Operations" />
           </h2>
-          <p className="text-gray-400 text-lg leading-relaxed mb-8">
-            By combining <span className="text-white font-medium">industrial engineering</span>, <span className="text-white font-medium">AI-driven analytics</span>, and <span className="text-white font-medium">business ROI modeling</span>, we help <span className="text-primary font-medium">Indian businesses</span> reduce costs, eliminate inefficiencies, and scale sustainably — without unnecessary complexity.
-          </p>
-          <p className="text-xl text-white font-medium">
-            Our solutions are <span className="text-primary">outcome-driven</span>, <span className="text-primary">data-backed</span>, and built for <span className="text-primary">real-world implementation</span>.
+          <p className="text-gray-400 text-lg leading-relaxed">
+            <EditableText id="features.sectionDesc" defaultText="We engineer high-performance systems integrated with neural cognition and visual processing pipelines." />
           </p>
         </motion.div>
 

@@ -3,6 +3,7 @@ import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { useUI } from '../contexts/UIContext';
 import { motion } from 'motion/react';
 import { HeroMotionBackground } from './ui/HeroMotionBackground';
+import { EditableText } from '../contexts/CMSContext';
 
 export const CTA: React.FC = () => {
   const { openContactModal } = useUI();
@@ -35,7 +36,7 @@ export const CTA: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl font-bold text-white mb-6"
         >
-          Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Transform</span> Your <br className="hidden md:block"/> Business?
+          <EditableText id="cta.title" defaultText="Ready to Automate Your Operations?" />
         </motion.h2>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -44,7 +45,7 @@ export const CTA: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-gray-400 text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto"
         >
-          Schedule a free consultation with our automation experts and discover how we can help you achieve your operational goals.
+          <EditableText id="cta.subtitle" defaultText="Join forward-thinking enterprises using TriSmart's custom-engineered intelligent agents and workflows to accelerate their business growth." />
         </motion.p>
 
         <motion.div 
@@ -97,8 +98,8 @@ export const CTA: React.FC = () => {
           <span className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
 
           <span className="relative z-10 flex items-center gap-3">
-            Schedule Your Free Consultation
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <EditableText id="cta.primaryBtn" defaultText="Schedule Your Free Consultation" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
           </span>
         </motion.button>
       </div>

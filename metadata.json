@@ -1,5 +1,8 @@
 {
-  "name": "Remix: Trismart",
+  "name": "Trismart",
   "description": "Trismart provides cutting-edge intelligent automation solutions, integrating state of art technology and crossdomain functional systems to boost your revenue and to transform your enterprise operations.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

@@ -247,7 +247,7 @@ export const Industries: React.FC = () => {
     <section 
       id="industries" 
       ref={sectionRef}
-      className="py-24 bg-[#040D1A] relative overflow-hidden"
+      className="py-14 bg-[#040D1A] relative overflow-hidden"
     >
       <HeroMotionBackground />
       {/* Cosmic Background Elements */}
@@ -263,15 +263,15 @@ export const Industries: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-          <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-widest uppercase font-mono mb-6">
+          <div className="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-widest uppercase font-mono mb-4">
             Global Impact
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase font-mono">
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tighter uppercase font-mono">
             Industries We <span className="text-blue-400 italic">Transform</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base font-light">
             Empowering diverse sectors with next-generation technology and intelligent automation solutions.
           </p>
         </motion.div>
@@ -287,7 +287,7 @@ export const Industries: React.FC = () => {
               transition: { staggerChildren: 0.1 }
             }
           }}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto perspective-1000"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl mx-auto perspective-1000"
         >
           {industries.map((item, index) => {
             return (
@@ -297,41 +297,41 @@ export const Industries: React.FC = () => {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50, damping: 15 } }
                   }}
-                  className="group relative h-full min-h-[420px] rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.2)] flex flex-col"
+                  className="group relative h-full min-h-[300px] rounded-2xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.2)] flex flex-col cursor-pointer"
                 >
                   {/* Background Image with Gradient Overlay */}
-                  <div className="absolute inset-0 h-48">
+                  <div className="absolute inset-0 h-28">
                     <img 
                       src={item.image} 
                       alt={item.name} 
-                      className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-60"
+                      className="w-full h-full object-cover opacity-30 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-50"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#040D1A]/80 to-[#040D1A]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#040D1A]/90 to-[#040D1A]" />
                   </div>
 
                   {/* Content */}
-                  <div className="relative z-10 p-8 pt-32 flex flex-col h-full">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                        <item.icon className="w-6 h-6" />
+                  <div className="relative z-10 p-5 pt-16 flex flex-col h-full flex-1">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+                        <item.icon className="w-5 h-5" />
                       </div>
-                      <div className="text-xs font-mono font-bold text-gray-500 uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full bg-black/20 backdrop-blur-md">
+                      <div className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest border border-white/10 px-2.5 py-0.5 rounded-full bg-black/20 backdrop-blur-md">
                         {item.industryMapping.label}
                       </div>
                     </div>
 
-                    <h3 className="text-2xl font-black text-white tracking-tighter uppercase font-mono mb-3 group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-lg font-black text-white tracking-tighter uppercase font-mono mb-2 group-hover:text-blue-400 transition-colors">
                       {item.name}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                    <p className="text-gray-400 text-xs leading-relaxed mb-4 flex-1">
                       {item.description}
                     </p>
 
                     {/* Service Highlights Tags */}
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {item.serviceHighlights.map((highlight, idx) => (
-                        <span key={idx} className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-gray-300 uppercase tracking-wider group-hover:border-blue-500/30 transition-colors">
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                      {item.serviceHighlights.slice(0, 3).map((highlight, idx) => (
+                        <span key={idx} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[9px] font-mono text-gray-300 uppercase tracking-wider group-hover:border-blue-500/30 transition-colors">
                           {highlight}
                         </span>
                       ))}

@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global safety net: default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common security helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && 
+             request.auth.token.email == "saurabhmotalkar2021@gmail.com" &&
+             request.auth.token.email_verified == true;
+    }
+
+    // Projects collection rules
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Leads collection rules
+    match /leads/{leadId} {
+      allow create: if true; // Anyone can submit contact details
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Settings collection rules
+    match /settings/{settingId} {
+      allow read: if true; // Anyone can retrieve site settings / SEO config
+      allow write: if isAdmin();
+    }
+  }
+}

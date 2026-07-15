@@ -3,6 +3,7 @@ import { ShieldCheck, Mail, ChevronRight } from 'lucide-react';
 import { useUI } from '../contexts/UIContext';
 import { TiltCard } from './ui/TiltCard';
 import { HeroMotionBackground } from './ui/HeroMotionBackground';
+import { EditableText } from '../contexts/CMSContext';
 
 export const Hero: React.FC = () => {
   const { openContactModal } = useUI();
@@ -129,15 +130,17 @@ export const Hero: React.FC = () => {
         
         {/* Trust Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs font-medium mb-8 animate-hero-text hover:border-primary/50 transition-colors duration-300" style={{ animationDelay: '0.1s' }}>
-          <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-          <span>Trusted by <span className="text-primary font-bold">20+</span> Enterprises Worldwide</span>
+          <ShieldCheck className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+          <EditableText id="hero.badge" defaultText="Trusted by 20+ Enterprises Worldwide" />
         </div>
 
         {/* Headline */}
         <h1 className="text-3xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight max-w-5xl mx-auto animate-hero-text group cursor-default" style={{ animationDelay: '0.3s' }}>
-          Transform Your Business <br className="hidden md:block" />
+          <EditableText id="hero.titleLine1" defaultText="Transform Your Business" /> <br className="hidden md:block" />
           with <span className="relative inline-block overflow-hidden">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary animate-gradient-text">Intelligent Automation</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary animate-gradient-text">
+              <EditableText id="hero.titleLine2" defaultText="Intelligent Automation" />
+            </span>
             
             {/* Elite Sweeping Shine Effect */}
             <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 animate-[shimmer_3s_infinite_cubic-bezier(0.4,0,0.2,1)]"></span>
@@ -161,7 +164,7 @@ export const Hero: React.FC = () => {
 
         {/* Subheadline */}
         <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-hero-text" style={{ animationDelay: '0.5s' }}>
-          We provide end-to-end automation services and bespoke digital software solutions designed to eliminate operational friction and drive measurable ROI for modern enterprises.
+          <EditableText id="hero.description" defaultText="We provide end-to-end automation services and bespoke digital software solutions designed to eliminate operational friction and drive measurable ROI for modern enterprises." />
         </p>
 
         {/* CTA Buttons */}
@@ -175,15 +178,15 @@ export const Hero: React.FC = () => {
             }}
             className="bg-gradient-to-r from-primary to-secondary text-white hover:shadow-[0_0_20px_rgba(var(--color-primary),0.5)] border border-transparent px-8 py-3.5 rounded-lg font-semibold flex items-center gap-2 transition-all group"
           >
-            Explore Services
+            <EditableText id="hero.exploreBtn" defaultText="Explore Services" />
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
           <button 
             onClick={openContactModal} 
             className="bg-white/5 backdrop-blur-md text-white border border-white/10 hover:bg-white/10 px-8 py-3.5 rounded-lg font-semibold flex items-center gap-2 transition-all"
           >
-            <Mail className="w-4 h-4 text-primary" />
-            Get a Consultation
+            <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+            <EditableText id="hero.consultBtn" defaultText="Get a Consultation" />
           </button>
         </div>
 
@@ -192,16 +195,28 @@ export const Hero: React.FC = () => {
           <TiltCard>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:divide-x divide-white/10 max-w-4xl mx-auto glass-card rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.1)]">
               <div className="p-6 md:p-8 group hover:bg-white/5 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1 group-hover:text-primary transition-colors">23+</div>
-                <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">Automations Deployed</div>
+                <div className="text-3xl md:text-4xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                  <EditableText id="hero.stat1Value" defaultText="23+" />
+                </div>
+                <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">
+                  <EditableText id="hero.stat1Label" defaultText="Automations Deployed" />
+                </div>
               </div>
               <div className="p-6 md:p-8 group hover:bg-white/5 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">95%</div>
-                <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">Workflow Efficiency</div>
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
+                  <EditableText id="hero.stat2Value" defaultText="95%" />
+                </div>
+                <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">
+                  <EditableText id="hero.stat2Label" defaultText="Workflow Efficiency" />
+                </div>
               </div>
               <div className="p-6 md:p-8 group hover:bg-white/5 transition-colors">
-                <div className="text-3xl md:text-4xl font-bold text-secondary mb-1">10+</div>
-                <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">Domain Expertise</div>
+                <div className="text-3xl md:text-4xl font-bold text-secondary mb-1">
+                  <EditableText id="hero.stat3Value" defaultText="10+" />
+                </div>
+                <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">
+                  <EditableText id="hero.stat3Label" defaultText="Domain Expertise" />
+                </div>
               </div>
             </div>
           </TiltCard>

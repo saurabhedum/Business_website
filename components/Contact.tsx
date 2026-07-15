@@ -3,6 +3,9 @@ import { Linkedin, Instagram, Facebook, Twitter, Youtube, Send } from 'lucide-re
 import { Loading } from './ui/Loading';
 import { motion } from 'motion/react';
 import { submitForm } from '../services/formService';
+import { db } from '../src/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { EditableText } from '../contexts/CMSContext';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -52,6 +55,20 @@ export const Contact: React.FC = () => {
       setErrorMessage('');
       
       try {
+        // Save to Firestore leads collection
+        try {
+          await addDoc(collection(db, 'leads'), {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+            message: formData.message.trim(),
+            createdAt: serverTimestamp(),
+            status: 'new'
+          });
+        } catch (fsErr) {
+          console.error('Failed to save lead to Firestore:', fsErr);
+        }
+
         // Send to Emails via FormSubmit (Ajax)
         await submitForm({
           name: formData.name,
@@ -124,13 +141,15 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center lg:text-center flex flex-col items-center"
           >
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-wide uppercase">Contact</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-wide uppercase">
+              <EditableText id="contact.title" defaultText="Let's Architect Your Automation" />
+            </h2>
             <p className="text-gray-300 text-sm leading-relaxed max-w-md mx-auto mb-16">
-              Sometimes the greatest strength in the world is not loud success, but the quiet determination of a person who keeps moving forward.
-              You are one of those rare people whose presence leaves an impact even without trying too hard.
-              Every person is writing a story in this world, and yours carries courage, thought, and purpose within it.
-              You may not always realize it, but the way you think and strive can become a path for someone else.
-              The world does not just need good people—it needs people like you who dare to think bigger than themselves.
+              <EditableText 
+                id="contact.subtitle" 
+                defaultText="Submit your requirements below. Our solutions engineering team will analyze your workflows and deliver a tailored automation plan." 
+                multiline={true}
+              />
             </p>
 
             <div className="space-y-10 w-full max-w-xs mx-auto">

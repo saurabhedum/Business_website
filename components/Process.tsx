@@ -235,7 +235,7 @@ export const Process: React.FC = () => {
   }, [currentTheme]);
 
   return (
-    <section id="our-process" className="py-16 md:py-24 relative overflow-hidden bg-black">
+    <section id="our-process" className="py-12 md:py-16 relative overflow-hidden bg-black">
       {/* Cosmic Wave Canvas Background */}
       <canvas 
         ref={canvasRef} 
@@ -248,10 +248,10 @@ export const Process: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">Our <span className="text-primary">Proven Process</span></h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">A simple, step-by-step approach to making your business run smoother and faster.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Our <span className="text-primary">Proven Process</span></h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm">A simple, step-by-step approach to making your business run smoother and faster.</p>
         </motion.div>
 
         <div className="relative max-w-5xl mx-auto">
@@ -269,7 +269,7 @@ export const Process: React.FC = () => {
             />
           </div>
 
-          <div className="space-y-12 md:space-y-0 relative">
+          <div className="space-y-8 md:space-y-0 relative">
             {steps.map((step, index) => {
               const isEven = index % 2 === 0;
               return (
@@ -279,28 +279,28 @@ export const Process: React.FC = () => {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: 0.1 }}
                   key={index} 
-                  className={`relative flex flex-col md:flex-row items-center md:h-64 ${isEven ? 'md:flex-row-reverse' : ''}`}
+                  className={`relative flex flex-col md:flex-row items-center md:h-52 ${isEven ? 'md:flex-row-reverse' : ''}`}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => handleMouseLeave(index)}
                 >
                   {/* Content Card */}
-                  <div className={`w-full md:w-5/12 ${isEven ? 'md:pl-12' : 'md:pr-12'} z-10`}>
+                  <div className={`w-full md:w-5/12 ${isEven ? 'md:pl-10' : 'md:pr-10'} z-10`}>
                     <TiltCard className="h-full">
-                      <div className={`h-full bg-dark/80 backdrop-blur-sm border border-gray-800 p-6 rounded-2xl transition-all duration-300 transform ${hoveredIndex === index ? 'border-primary/50 shadow-2xl shadow-primary/20 scale-105' : 'hover:border-gray-700'}`}>
-                        <div className="flex items-center gap-4 mb-4">
-                          <span className={`text-5xl font-black transition-colors duration-300 ${hoveredIndex === index ? 'text-primary/20' : 'text-gray-800/50'}`}>
+                      <div className={`h-full bg-dark/80 backdrop-blur-sm border border-gray-800 p-5 rounded-xl transition-all duration-300 transform ${hoveredIndex === index ? 'border-primary/50 shadow-2xl shadow-primary/20 scale-102' : 'hover:border-gray-700'}`}>
+                        <div className="flex items-center gap-3 mb-2.5">
+                          <span className={`text-4xl font-black transition-colors duration-300 ${hoveredIndex === index ? 'text-primary/20' : 'text-gray-800/50'}`}>
                             {step.number}
                           </span>
-                          <h3 className={`text-xl font-bold transition-colors duration-300 ${hoveredIndex === index ? 'text-primary' : 'text-white'}`}>
+                          <h3 className={`text-lg font-bold transition-colors duration-300 ${hoveredIndex === index ? 'text-primary' : 'text-white'}`}>
                             {step.title}
                           </h3>
                         </div>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                        <p className="text-gray-400 text-xs leading-relaxed mb-2.5">
                           {step.description}
                         </p>
                         
                         {/* Interactive Explanation Area */}
-                        <div className="relative min-h-[60px]">
+                        <div className="relative min-h-[44px]">
                           <AnimatePresence mode="wait">
                             {hoveredIndex === index && (
                               <motion.div
@@ -323,15 +323,15 @@ export const Process: React.FC = () => {
                   </div>
 
                   {/* Center Node */}
-                  <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center z-20">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${hoveredIndex === index ? 'bg-primary border-primary shadow-[0_0_20px_rgba(var(--color-primary),0.6)] scale-110' : 'bg-dark border-gray-700 text-gray-500'}`}>
-                      <step.icon className={`w-5 h-5 transition-colors duration-300 ${hoveredIndex === index ? 'text-white' : ''}`} />
+                  <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center z-20">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${hoveredIndex === index ? 'bg-primary border-primary shadow-[0_0_15px_rgba(var(--color-primary),0.5)] scale-110' : 'bg-dark border-gray-700 text-gray-500'}`}>
+                      <step.icon className={`w-4 h-4 transition-colors duration-300 ${hoveredIndex === index ? 'text-white' : ''}`} />
                     </div>
                   </div>
 
                   {/* Mobile Icon (visible only on small screens) */}
-                  <div className="md:hidden absolute -top-4 left-6 w-10 h-10 rounded-full bg-dark border-2 border-primary flex items-center justify-center shadow-[0_0_10px_rgba(var(--color-primary),0.4)] z-20">
-                     <step.icon className="w-4 h-4 text-primary" />
+                  <div className="md:hidden absolute -top-4 left-6 w-8 h-8 rounded-full bg-dark border-2 border-primary flex items-center justify-center shadow-[0_0_10px_rgba(var(--color-primary),0.4)] z-20">
+                     <step.icon className="w-3.5 h-3.5 text-primary" />
                   </div>
                   
                   {/* Empty space for alignment */}

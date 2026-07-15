@@ -10,6 +10,8 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { UIProvider, useUI } from "./contexts/UIContext";
+import { AuthProvider } from "./contexts/AuthContext";
+import { CMSProvider } from "./contexts/CMSContext";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ContactModal } from "./components/ContactModal";
 import { AboutModal } from "./components/AboutModal";
@@ -17,15 +19,26 @@ import { ExplainerModal } from "./components/ExplainerModal";
 import { CosmicLoader } from "./components/CosmicLoader";
 import { CatalogueDetail } from "./components/CatalogueDetail";
 import { ProjectsView } from "./components/ProjectsView";
+import { PortfolioView } from "./components/PortfolioView";
 import { ProcessView } from "./components/ProcessView";
 import { ProjectSchema } from "./components/ProjectSchema";
 import { DraggableMenu } from "./components/DraggableMenu";
+import { AdminDashboard } from "./components/AdminDashboard";
+import { CustomProjects } from "./components/CustomProjects";
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "motion/react";
+
+import { Toaster } from "react-hot-toast";
+import { SEOService } from "./services/seoService";
 
 const MainContent = () => {
   const { activeView } = useUI();
   const { scrollY } = useScroll();
   const { scrollYProgress } = useScroll();
+
+  // Automatically scroll to top of the screen when the active view changes
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeView]);
   
   // Hide ripples on Hero section (top of home page)
   const ripplesOpacity = useTransform(
@@ -60,7 +73,7 @@ const MainContent = () => {
 
       {/* Cosmic Background Effect */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_70%)] animate-pulse"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--color-primary),0.05),transparent_70%)] animate-pulse transition-all duration-1000"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
         <motion.div 
           animate={{ 
@@ -72,7 +85,7 @@ const MainContent = () => {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_50%)]"
+          className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(var(--color-secondary),0.03)_0%,transparent_50%)] transition-all duration-1000"
         />
       </div>
 
@@ -108,6 +121,8 @@ const MainContent = () => {
             <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={sectionVariants}>
               <Industries />
             </motion.section>
+
+            <CustomProjects />
             
             <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={sectionVariants}>
               <CTA />
@@ -125,6 +140,17 @@ const MainContent = () => {
             className="relative z-10 w-full min-h-[300vh] flex flex-col"
           >
             <ProjectsView />
+          </motion.main>
+        ) : activeView === "portfolio" ? (
+          <motion.main
+            key="portfolio"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="relative z-10 w-full min-h-screen flex flex-col"
+          >
+            <PortfolioView />
           </motion.main>
         ) : activeView === "process" ? (
           <motion.main
@@ -148,6 +174,17 @@ const MainContent = () => {
             <ProjectSchema />
             <Contact />
           </motion.main>
+        ) : activeView === "admin" ? (
+          <motion.main
+            key="admin"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="relative z-10 w-full flex flex-col"
+          >
+            <AdminDashboard />
+          </motion.main>
         ) : activeView.startsWith("catalogue-") ? (
           <motion.main
             key={activeView}
@@ -170,21 +207,33 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isExplainerModalOpen, setIsExplainerModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    const seo = SEOService.getInstance();
+    seo.runRealtimeSEOUpdate().catch(err => {
+      console.error("[App] Failed to run dynamic SEO updates on startup:", err);
+    });
+  }, []);
+
   return (
     <ErrorBoundary>
-      <ThemeProvider>
-        <UIProvider>
-          {isLoading && <CosmicLoader onComplete={() => setIsLoading(false)} />}
-          <div className="bg-[#0B0F19] text-white font-sans selection:bg-primary/30 selection:text-white flex">
-            <Header />
-            <MainContent />
-            <DraggableMenu />
-            <ContactModal />
-            <AboutModal />
-            <ExplainerModal isOpen={isExplainerModalOpen} onClose={() => setIsExplainerModalOpen(false)} />
-          </div>
-        </UIProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <CMSProvider>
+          <ThemeProvider>
+            <UIProvider>
+              {isLoading && <CosmicLoader onComplete={() => setIsLoading(false)} />}
+              <Toaster position="bottom-right" toastOptions={{ style: { background: '#111827', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
+              <div className="bg-[#0B0F19] text-white font-sans selection:bg-primary/30 selection:text-white flex">
+                <Header />
+                <MainContent />
+                <DraggableMenu />
+                <ContactModal />
+                <AboutModal />
+                <ExplainerModal isOpen={isExplainerModalOpen} onClose={() => setIsExplainerModalOpen(false)} />
+              </div>
+            </UIProvider>
+          </ThemeProvider>
+        </CMSProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 }

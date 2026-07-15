@@ -3,9 +3,10 @@ import { Linkedin, Twitter, Facebook, Youtube, Mail, Phone, MapPin, ArrowRight }
 import { Logo } from './Logo';
 import { useUI } from '../contexts/UIContext';
 import { motion } from 'motion/react';
+import { EditableText } from '../contexts/CMSContext';
 
 export const Footer: React.FC = () => {
-  const { openContactModal } = useUI();
+  const { openContactModal, setActiveView } = useUI();
 
   const scrollToTop = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -94,7 +95,7 @@ export const Footer: React.FC = () => {
                <Logo className="h-12 text-white" />
             </a>
             <p className="text-gray-400 text-base leading-relaxed max-w-sm">
-              Pioneering the future of business through intelligent automation, AI integration, and transformative digital solutions.
+              <EditableText id="footer.tagline" defaultText="Pioneering the future of business through intelligent automation, AI integration, and transformative digital solutions." />
             </p>
             
             {/* Contact Info */}
@@ -174,6 +175,18 @@ export const Footer: React.FC = () => {
                   </a>
                 </li>
               ))}
+              <li>
+                <button 
+                  onClick={() => { 
+                    setActiveView('admin'); 
+                    window.scrollTo(0, 0); 
+                  }} 
+                  className="text-gray-400 hover:text-primary text-sm transition-colors flex items-center gap-2 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/0 group-hover:bg-primary transition-colors"></span>
+                  Admin Access
+                </button>
+              </li>
             </ul>
           </motion.div>
         </div>

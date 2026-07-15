@@ -18,7 +18,7 @@ const quotes = [
 ];
 
 export const ContactModal: React.FC = () => {
-  const { isContactModalOpen, closeContactModal } = useUI();
+  const { isContactModalOpen, closeContactModal, prefillSubject, prefillMessage } = useUI();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,6 +31,16 @@ export const ContactModal: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    if (isContactModalOpen) {
+      setFormData(prev => ({
+        ...prev,
+        subject: prefillSubject || '',
+        message: prefillMessage || ''
+      }));
+    }
+  }, [isContactModalOpen, prefillSubject, prefillMessage]);
 
   useEffect(() => {
     if (!isContactModalOpen) return;

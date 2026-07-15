@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "Enterprise solutions and intelligent automation projects showcase",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "videoUrl": {
+          "type": "string"
+        },
+        "googleDriveLink": {
+          "type": "string"
+        },
+        "pdfLink": {
+          "type": "string"
+        },
+        "demoLink": {
+          "type": "string"
+        },
+        "views": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": ["title", "description"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Client inquiry or contact request leads",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "email", "message"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Platform settings and SEO parameters",
+      "type": "object",
+      "properties": {
+        "fixedKeywords": {
+          "type": "array"
+        },
+        "customDescription": {
+          "type": "string"
+        },
+        "enableGoogleTrendsIN": {
+          "type": "boolean"
+        },
+        "enableGoogleTrendsUS": {
+          "type": "boolean"
+        },
+        "enableDevTo": {
+          "type": "boolean"
+        },
+        "lastSyncedAt": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "projects/{projectId}": {
+      "schema": "Project",
+      "description": "Active portfolio items"
+    },
+    "leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Client contact submissions"
+    },
+    "settings/{settingId}": {
+      "schema": "Setting",
+      "description": "App settings configuration documents"
+    }
+  }
+}

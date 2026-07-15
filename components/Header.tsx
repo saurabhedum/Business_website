@@ -252,6 +252,7 @@ export const Header: React.FC = () => {
             <NavIconButton icon={Factory} label="Industries" onClick={() => toggleMenu('industries')} isActive={activeMenu === 'industries'} hasSubmenu index={3} isExpanded={isSidebarHovered} />
             <NavIconButton icon={Cpu} label="Services" onClick={() => toggleMenu('services')} isActive={activeMenu === 'services'} hasSubmenu index={4} isExpanded={isSidebarHovered} />
             <NavIconButton icon={FolderKanban} label="Projects" onClick={() => { setActiveView('projects'); setActiveMenu(null); window.scrollTo(0, 0); }} isActive={currentView === 'projects'} index={5} isExpanded={isSidebarHovered} />
+            <NavIconButton icon={Briefcase} label="Port folio" onClick={() => { setActiveView('portfolio'); setActiveMenu(null); window.scrollTo(0, 0); }} isActive={currentView === 'portfolio'} index={6} isExpanded={isSidebarHovered} />
             <NavIconButton 
               icon={FileText} 
               label="Brochure" 
@@ -263,7 +264,7 @@ export const Header: React.FC = () => {
                 link.click();
                 document.body.removeChild(link);
               }} 
-              index={6} 
+              index={7} 
               isExpanded={isSidebarHovered} 
             />
           </nav>

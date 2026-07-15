@@ -4,10 +4,12 @@ interface UIState {
   isContactModalOpen: boolean;
   isAboutModalOpen: boolean;
   activeView: string;
+  prefillSubject?: string;
+  prefillMessage?: string;
 }
 
 type UIAction =
-  | { type: 'OPEN_CONTACT_MODAL' }
+  | { type: 'OPEN_CONTACT_MODAL'; payload?: { subject: string; message: string } }
   | { type: 'CLOSE_CONTACT_MODAL' }
   | { type: 'OPEN_ABOUT_MODAL' }
   | { type: 'CLOSE_ABOUT_MODAL' }
@@ -17,14 +19,26 @@ const initialState: UIState = {
   isContactModalOpen: false,
   isAboutModalOpen: false,
   activeView: 'home',
+  prefillSubject: '',
+  prefillMessage: '',
 };
 
 function uiReducer(state: UIState, action: UIAction): UIState {
   switch (action.type) {
     case 'OPEN_CONTACT_MODAL':
-      return { ...state, isContactModalOpen: true };
+      return { 
+        ...state, 
+        isContactModalOpen: true,
+        prefillSubject: action.payload?.subject || '',
+        prefillMessage: action.payload?.message || ''
+      };
     case 'CLOSE_CONTACT_MODAL':
-      return { ...state, isContactModalOpen: false };
+      return { 
+        ...state, 
+        isContactModalOpen: false,
+        prefillSubject: '',
+        prefillMessage: ''
+      };
     case 'OPEN_ABOUT_MODAL':
       return { ...state, isAboutModalOpen: true };
     case 'CLOSE_ABOUT_MODAL':
@@ -37,7 +51,7 @@ function uiReducer(state: UIState, action: UIAction): UIState {
 }
 
 interface UIContextType extends UIState {
-  openContactModal: () => void;
+  openContactModal: (subject?: string | any, message?: string) => void;
   closeContactModal: () => void;
   openAboutModal: () => void;
   closeAboutModal: () => void;
@@ -49,7 +63,14 @@ const UIContext = createContext<UIContextType | undefined>(undefined);
 export const UIProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(uiReducer, initialState);
 
-  const openContactModal = () => dispatch({ type: 'OPEN_CONTACT_MODAL' });
+  const openContactModal = (subject?: string | any, message?: string) => {
+    const isStringSubject = typeof subject === 'string';
+    if (isStringSubject || message) {
+      dispatch({ type: 'OPEN_CONTACT_MODAL', payload: { subject: isStringSubject ? subject : '', message: message || '' } });
+    } else {
+      dispatch({ type: 'OPEN_CONTACT_MODAL' });
+    }
+  };
   const closeContactModal = () => dispatch({ type: 'CLOSE_CONTACT_MODAL' });
   const openAboutModal = () => dispatch({ type: 'OPEN_ABOUT_MODAL' });
   const closeAboutModal = () => dispatch({ type: 'CLOSE_ABOUT_MODAL' });
